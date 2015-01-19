@@ -1,5 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(data-role='page', data-theme='b', data-content-theme='b')
+    div(data-role='header')
+      a(data-icon='gear') #{username}
+      h1= title
+      a(href='/logout', class='ui-btn-right') Log out
+    div(data-role='main' class='ui-content')      
+      table
+        tr
+          td
+            label Your Tracks
+          td
+        
+  
