@@ -9,7 +9,15 @@ a {
   width: 400px;
   margin: 0 auto;
 }
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
 #error {
   color: #f00;
   font: 20px;
+}
+#tracks {
+  float: left;
+  padding: 20px;
 }

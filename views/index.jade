@@ -6,11 +6,24 @@ block content
       a(data-icon='gear') #{username}
       h1= title
       a(href='/logout', class='ui-btn-right') Log out
-    div(data-role='main' class='ui-content')      
-      table
-        tr
-          td
-            label Your Tracks
-          td
-        
+    div(data-role='main', class='container')      
+      h3 Your Tracks 
+      
+      div(class="ui-block-a", style="width:30%") 
+        ul(id='tracks')
+          // for testing only
+          each val, index in {1:'first',2:'second',3:'third',4:'fourth'}
+            li
+              a= index + ': ' + val
+    
+      img(id='map', src='' style='width:600px')
+      
+      
+      h3 Add new track
+      form(action="/addtrack",method="post") 
+        div(class="ui-block-a", style="width:75%") 
+          input(type="file",name="gpxfile",placeholder='GPX file',required)
+        div(class="ui-block-b", style="width:25%")
+          input(type="submit",value="Upload")
+    
   
