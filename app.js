@@ -4,16 +4,19 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer')
 var session= require('express-session');
-
 var routes = require('./routes/index');
 
 var app = express();
+
 app.use(session({secret:'725b5c00-d79a-4ea5-9c9b-27848a99b06d', resave: false, saveUninitialized: true}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+app.use(multer({inMemory: true}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -23,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', routes);
 

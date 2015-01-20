@@ -9,10 +9,10 @@ block content
     div(data-role='main', class='container')      
       h3 Your Tracks 
       
-      div(class="ui-block-a", style="width:30%") 
+      div(class='ui-block-a', style='width:30%') 
         ul(id='tracks')
           // for testing only
-          each val, index in {1:'first',2:'second',3:'third',4:'fourth'}
+          each val, index in tracklist
             li
               a= index + ': ' + val
     
@@ -20,10 +20,10 @@ block content
       
       
       h3 Add new track
-      form(action="/addtrack",method="post") 
-        div(class="ui-block-a", style="width:75%") 
-          input(type="file",name="gpxfile",placeholder='GPX file',required)
-        div(class="ui-block-b", style="width:25%")
-          input(type="submit",value="Upload")
+      form(action='/addtrack', method='post', enctype='multipart/form-data', data-ajax='false') 
+        div(class='ui-block-a', style='width:75%') 
+          input(type='file', name='gpxfile', required)
+        div(class='ui-block-b', style='width:25%')
+          input(type='submit', value='Upload')
     
   
