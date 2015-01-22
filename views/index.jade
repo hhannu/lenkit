@@ -1,6 +1,7 @@
 extends layout
 
-block content
+block content  
+  
   div(data-role='page', data-theme='b', data-content-theme='b')
     div(data-role='header')
       a(data-icon='gear') #{username}
@@ -12,18 +13,25 @@ block content
       div(class='ui-block-a', style='width:30%') 
         ul(id='tracks')
           // for testing only
-          each val, index in tracklist
+          
+          each val in tracklist
             li
-              a= index + ': ' + val
+              a= val
     
-      img(id='map', src='' style='width:600px')
+      div(id='map', class='ui-block-b')
+
+      div(id='data', class='ui-block-a')
+        br
+        // todo: add distance, avg speed, ...
       
-      
-      h3 Add new track
+      h3(class='ui-block-a') Add new track
       form(action='/addtrack', method='post', enctype='multipart/form-data', data-ajax='false') 
         div(class='ui-block-a', style='width:75%') 
           input(type='file', name='gpxfile', required)
         div(class='ui-block-b', style='width:25%')
           input(type='submit', value='Upload')
+          
+  div(type='hidden', id='track', data-id='#{trackpoints}')
+  script(src='/javascripts/map.js')  
     
   

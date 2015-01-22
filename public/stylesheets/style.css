@@ -21,3 +21,8 @@ a {
   float: left;
   padding: 20px;
 }
+#map {
+  width: 600px;
+  height: 600px;
+  background-color: #a9a9a9;
+}
