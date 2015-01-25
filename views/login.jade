@@ -8,11 +8,14 @@ block content
       form(action="/login",method="post")
         input(type="text",name="username",placeholder='Username',required)
         //label Password
-        //input(type="password",name="password",required)
-        //br
+        //input(type="password",name="password",required,min="8")
+        br
         input(type="submit",value="Log in")
 
       if error
         br
         p(id='error') #{error}
       br
+
+      p Not registered yet?
+      a(href='/register') Register here

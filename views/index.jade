@@ -18,6 +18,7 @@ block content
               a= val
     
       div(id='map', class='ui-block-b')
+        p(id='mapinfo') No track to display
 
       div(id='data', class='ui-block-a')
         br
@@ -30,7 +31,7 @@ block content
         div(class='ui-block-b', style='width:25%')
           input(type='submit', value='Upload')
           
-  div(type='hidden', id='track', data-id='#{trackpoints}')
-  script(src='/javascripts/map.js')  
+    div(type='hidden', id='track', data-id='#{trackpoints}')
+    script(src='/javascripts/map.js')  
     
   

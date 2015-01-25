@@ -1,0 +1,34 @@
+extends layout
+
+block content
+
+  div(data-role='page', data-theme='b', data-content-theme='b')
+  
+    div(data-role='header')
+      h1 Register to #{title}
+
+    div(data-role='main' class='login')    
+      form(action="/register",method="post",data-ajax='false')
+        label Username (3-20 characters)
+        br
+        input(type="text",name="username",required, min="3", max="20")
+        br
+        label Password (min. 8 characters)
+        br
+        input(type="password",name="password1",required, min="8")
+        br
+        label Password confirmation
+        br
+        input(type="password",name="password2",required, min="8")
+        br
+        label Email address
+        br
+        input(type="email",name="email",required, max="100")
+        br
+        input(type="submit",value="Register")
+     
+      if error
+        br
+        p(id='error') #{error}
+      br 
+      a(href='/') Back to login

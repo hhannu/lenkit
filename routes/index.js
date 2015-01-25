@@ -37,6 +37,28 @@ router.post('/login', function(req, res) {
     }
 });
 
+router.get('/register', function(req, res) {
+    
+    if(typeof req.session.username == 'undefined') {
+        res.render('register')
+    }
+    else {
+        res.location('');
+        res.redirect('/');          
+    }
+});
+
+router.post('/register', function(req, res) {
+    
+    if(typeof req.session.username == 'undefined') {
+        db.register(req,res);
+    }
+    else {
+        res.location('');
+        res.redirect('/');          
+    }
+});
+
 router.post('/addtrack', function(req, res) {
     if(typeof req.session.username != 'undefined') {
         db.addTrack(req,res);
