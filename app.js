@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer')
 var session= require('express-session');
 var routes = require('./routes/index');
+var db = require('./db')
 
 var app = express();
 

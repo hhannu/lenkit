@@ -1,6 +1,6 @@
 {
   "name": "lenkit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -15,6 +15,8 @@
     "morgan": "~1.5.1",
     "serve-favicon": "~2.2.0",
     "express-session": "~1.10.1",
-    "multer": "~0.1.7"
+    "multer": "~0.1.7",
+    "xmldom": "~0.1.19",
+    "mongoose": "~3.8.22"
   }
 }
