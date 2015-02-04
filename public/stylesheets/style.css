@@ -33,3 +33,7 @@ a {
   font: 20px;
   color: #000;
 }
+th,
+td {
+  width: 30%;
+}
