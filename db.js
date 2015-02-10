@@ -90,7 +90,7 @@ exports.logIn = function(req,res){
     
     User.find({username:req.body.username},function(err,user){
         if(err || user.length === 0){
-            console.log('error');
+            //console.log('error');
             res.render('login',{title:'Lenkit',error:'Wrong username or password'});
         }
         else{
@@ -98,11 +98,11 @@ exports.logIn = function(req,res){
             //if(password === user[0].password) {
                 req.session.username = user[0].username;
                 req.session.id =  user[0]._id;
-                console.log('pw success ' + password + ' ' + user[0].password);
+                //console.log('pw success ' + password + ' ' + user[0].password);
                 res.redirect('/');
             }
             else {
-                console.log('pw fail ' + password + ' ' + user[0].password);
+                //console.log('pw fail ' + password + ' ' + user[0].password);
                 res.render('login',{title:'Lenkit',error:'Wrong username or password'});
             }
         }
@@ -111,39 +111,36 @@ exports.logIn = function(req,res){
 
 // get tracks for user
 exports.getTracks = function(req,res){  
-    //console.log('getTracks ' + req.session.username + ' ' + req.session.id);   
+    console.log('getTracks ' + req.session.username + ' ' + req.session.id);   
   
     Track.find({owner:req.session.username},function(err,data){
-        if(err){
+        if(err) {
             res.render('error', {message: 'Database error', error: err});
         }
-        else{
-            console.log(data);
+        else {
             var index = req.query.track;
-            if(typeof index === 'undefined' || index < 0 || index > data.length)  
-                index = 0;
-            
             var trackNames = [];
             var trackPts = [];
             var desc = '';
             var dist = 0;
             
-            if(typeof data[index] !== 'undefined'){
-                trackPts = data[index].trackPoints;
-                desc = data[index].description;
-                dist = data[index].distance;
-            }
-            
-            for(i = 0; i < data.length; i++){
+            for(var i = 0; i < data.length; i++) {
                 trackNames.push(data[i].name);
             }
             
+            if(typeof index !== 'undefined' && index >= 0 && index < data.length) {
+                if(typeof data[index] !== 'undefined'){
+                    trackPts = data[index].trackPoints;
+                    desc = data[index].description;
+                    dist = data[index].distance;
+                }  
+            }
             res.render('index', { title: 'Lenkit',
-                                  username:req.session.username,
-                                  tracklist: trackNames,
-                                  desc: desc,
-                                  dist: dist,
-                                  trackpoints: JSON.stringify(trackPts) });
+                                      username:req.session.username,
+                                      tracklist: trackNames,
+                                      desc: desc,
+                                      dist: dist,
+                                      trackpoints: JSON.stringify(trackPts) }); 
         }
     });
 }

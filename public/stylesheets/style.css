@@ -41,6 +41,9 @@ a {
   font: 20px;
   color: #000;
 }
+#description {
+  margin-left: 20px;
+}
 th,
 td {
   width: 30%;
