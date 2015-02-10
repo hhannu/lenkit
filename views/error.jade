@@ -1,6 +1,12 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  div(data-role='page', data-theme='b', data-content-theme='b')
+    div(data-role='header')
+      h1= title
+      a(href='/', class='ui-btn-right') Go Back
+    div(data-role='main', class='container')
+      h1= message
+      h2= error.status
+      pre #{error.stack}
+  

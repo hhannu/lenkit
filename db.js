@@ -166,40 +166,49 @@ exports.addTrack = function(req,res){
     // handle file
     var parser = new DOMParser();
     var xmldoc = parser.parseFromString(req.files.gpxfile.buffer.toString(), "text/xml");
-    var points = xmldoc.getElementsByTagName("trkpt");
-
-    var trackPts = [];
-    temp.name = xmldoc.getElementsByTagName("time")[0].childNodes[0].nodeValue;
     
-    if(typeof req.body.description !== 'undefined' || typeof req.body.description !== null)
-        temp.description = req.body.description;
-    else
-        temp.description = '';
-
-    for(i = 0; i < points.length; i++){	  
-        var trkpt = { lat:String, lon:String, time:String };
-        trkpt.lat = points[i].getAttribute("lat");
-        trkpt.lon = points[i].getAttribute("lon");
-        trkpt.time = '';      
-        //console.log(trkpt);
-        trackPts.push(trkpt);
-        
-        var gp1 = new GeoPoint(parseFloat(trackPts[i < 1 ? 0 : i - 1].lat),
-                               parseFloat(trackPts[i < 1 ? 0 : i - 1].lon));
-        var gp2 = new GeoPoint(parseFloat(trackPts[i].lat), parseFloat(trackPts[i].lon));
-
-        dist = dist + gp2.distanceTo(gp1, true);
+    var gpx = xmldoc.getElementsByTagName("gpx");
+    
+    console.log('gpx: ' + gpx.length);
+    if(gpx.length !== 1){
+        res.render('error', {title: 'Lenkit', message: 'File upload failed.', error: {}});        
     }
-    
-    //console.log(trackPts);
-    //console.log(trackPts.length)
-    temp.distance = dist.toFixed(2);
-    temp.trackPoints = trackPts;
-    temp.save(function(err){
-        if(err){
-            res.render('error', {message: 'Failed to save track', error: err});
+    else {
+        var points = xmldoc.getElementsByTagName("trkpt");
+
+        var trackPts = [];
+        temp.name = xmldoc.getElementsByTagName("time")[0].childNodes[0].nodeValue;
+
+        if(typeof req.body.description !== 'undefined' || typeof req.body.description !== null)
+            temp.description = req.body.description;
+        else
+            temp.description = '';
+
+        for(i = 0; i < points.length; i++){	  
+            var trkpt = { lat:String, lon:String, time:String };
+            trkpt.lat = points[i].getAttribute("lat");
+            trkpt.lon = points[i].getAttribute("lon");
+            trkpt.time = '';      
+            //console.log(trkpt);
+            trackPts.push(trkpt);
+
+            var gp1 = new GeoPoint(parseFloat(trackPts[i < 1 ? 0 : i - 1].lat),
+                                   parseFloat(trackPts[i < 1 ? 0 : i - 1].lon));
+            var gp2 = new GeoPoint(parseFloat(trackPts[i].lat), parseFloat(trackPts[i].lon));
+
+            dist = dist + gp2.distanceTo(gp1, true);
         }
-    });
-    
-    res.redirect('/');
+
+        //console.log(trackPts);
+        //console.log(trackPts.length)
+        temp.distance = dist.toFixed(2);
+        temp.trackPoints = trackPts;
+        temp.save(function(err){
+            if(err){
+                res.render('error', {title: 'Lenkit', message: 'Failed to save track', error: err});
+            }
+        });
+
+        res.redirect('/');
+    }
 }
