@@ -12,17 +12,17 @@ block content
       h3 Your Tracks 
       
       div(class='ui-grid-a ui-responsive') 
-        div(class="ui-block-a ui-responsive", style="width:30%")
+        div(class="ui-block-a", style="width:40%")
           if tracklist.length !== 0
             ul(id='tracks', data-role="listview")                     
               each val, index in tracklist
                 li(class="ui-collapsible-inset")
-                a(href='/?track=#{index}',data-ajax='false') #{val}
+                  a(href='/?track=#{index}',data-ajax='false') #{val}
           else
             ul(id='notracks', data-role="listview")
               li No tracks
             
-        div(class='ui-block-b  my-breakpoint', style="width:70%")
+        div(class='ui-block-b ui-responsive', style="width:60%")
           div(id='map')
             p(id='mapinfo') No track to display
 
