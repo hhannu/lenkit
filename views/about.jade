@@ -1,0 +1,60 @@
+extends layout
+
+block content
+  div(data-role='page', data-theme='b', data-content-theme='b')
+    div(data-role='header')
+      h1 #{title} - the antisocial tracker
+      a(href='/', class='ui-btn-right') Back to login
+    div(data-role='main', class='container')
+      p 
+        | #{title} is a service where you can store gps tracks and view them on map. Nothing else.
+        br
+        br
+        | You can't:
+      ul
+        li Share your tracks on Facebook, Twitter, etc.
+        li Get updates from other user's activities
+        li Receive ads
+        li Buy any extra features
+      br
+      
+      p 
+        | #{title} uses:
+      ul
+        li 
+          a(href="http://en.wikipedia.org/wiki/JavaScript") JavaScript
+        li 
+          a(href="http://nodejs.org/") Node.js
+          | ,  
+          a(href="http://expressjs.com/") Express.js
+          |  for the backend
+        li
+          a(href="") MongoDb
+          |  as database
+        li 
+          a(href="http://jquerymobile.com/") jQuery Mobile
+          |  and 
+          a(href="http://jade-lang.com/") Jade
+          |  for UI
+        li 
+          a(href="https://developers.google.com/maps/documentation/javascript/") Google Maps
+      br
+      
+      p What's working:
+      ul
+        li User registration
+        li log in/out
+        li adding and displaying tracks
+      br
+      
+      p Things to be done:
+      ul
+        li improve UI
+        li user settings: units, change password, etc.
+        li calculate time and average speed for tracks
+        li track editing and removing
+      br
+      
+      br
+      a(href="https://github.com/hhannu/lenkit") Browse source code
+      br

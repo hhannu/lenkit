@@ -5,11 +5,12 @@ a
   color: #00B7FF
   
 .login
-  width: 400px
+  width: 300px
   margin: 0 auto
   
 .container
-  width: 80%
+  width: 90%
+  height: 90%
   margin: 0 auto
 
 #error
@@ -18,12 +19,19 @@ a
   
 #tracks
   float: left
-  padding: 20px
+  overflow-y: scroll
+  margin-top: 20px
+  height: 600px
+  
+#notracks
+  float: left
+  margin-top: 20px
+  height: 600px
   
 #map
-  width: 600px
-  height: 600px
   background-color:darkgray
+  width: 640px
+  height: 640px
 
 #mapinfo
   position: relative
@@ -34,3 +42,18 @@ a
   
 th,td 
   width: 30%
+  text-align: center
+
+@media only screen and (min-width: 1024px)
+  .ui-content 
+    width: 1024px !important;
+    margin: 0 auto
+  
+@media only screen and (max-width: 1024px)
+  #tracks
+    height: 200px
+  #notracks
+    height: 100px
+  #map
+    width: 360px
+    height: 360px

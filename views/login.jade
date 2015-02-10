@@ -1,21 +1,31 @@
 extends layout
 
 block content
-  div(data-role='page', data-theme='b', data-content-theme='b')
-    div(data-role='header')
+  div(data-role="page", data-theme="b", data-content-theme="b")
+    div(data-role="header")
       h1 #{title} login
-    div(data-role='main' class='login')
-      form(action="/login",method="post")
-        input(type="text",name="username",placeholder='Username',required)
-        //label Password
-        //input(type="password",name="password",required,min="8")
+    div(data-role="main" class="login")
+      br
+      form(action="/login", method="post", onsubmit="return hash(this.password)")
+        input(type="text", name="username", placeholder="Username", required)
+        input(type="password", name="password", placeholder="Password", required,min="8")
         br
-        input(type="submit",value="Log in")
+        input(type="submit", value="Log in")
 
       if error
         br
-        p(id='error') #{error}
+        p(id="error") #{error}
       br
-
-      p Not registered yet?
-      a(href='/register') Register here
+      
+      div(style="width:90%; margin:0 auto")
+        p Not registered yet?
+        a(href="/register", class="ui-block-a", style="width:50%") Register here
+        a(href="/about",class="ui-block-b", style="width:50%; text-align:right") WTF is this?
+  
+  script.
+    function hash(password){
+      var pw = password.value;
+      password.value = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(pw));
+      return true;
+    }
+  script(src="sjcl.js")
