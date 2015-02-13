@@ -158,20 +158,23 @@ exports.addTrack = function(req,res){
         trackPoints: [],
     });    
     
-    var dist = 0;
+    var dist = 0.0;
     temp.timeStamp = new Date();
 
-    //console.log(req.body);
-    //console.log(req.files);
     // handle file
     var parser = new DOMParser();
-    var xmldoc = parser.parseFromString(req.files.gpxfile.buffer.toString(), "text/xml");
+    
+    try{
+        var xmldoc = parser.parseFromString(req.files.gpxfile.buffer.toString(), "text/xml");
+    }
+    catch(err){
+        res.render('error', {title: 'Lenkit', message: 'File upload failed.', details: 'XML parse error.', error: {}}); 
+    }
     
     var gpx = xmldoc.getElementsByTagName("gpx");
     
-    console.log('gpx: ' + gpx.length);
     if(gpx.length !== 1){
-        res.render('error', {title: 'Lenkit', message: 'File upload failed.', error: {}});        
+        res.render('error', {title: 'Lenkit', message: 'File upload failed.', details: 'Not a GPX file.', error: {}});        
     }
     else {
         var points = xmldoc.getElementsByTagName("trkpt");

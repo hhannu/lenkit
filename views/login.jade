@@ -3,7 +3,7 @@ extends layout
 block content
   div(data-role="page", data-theme="b", data-content-theme="b")
     div(data-role="header")
-      h1 #{title} login
+      h1 #{title}
     div(data-role="main" class="login")
       br
       form(action="/login", method="post", onsubmit="return hash(this.password)")

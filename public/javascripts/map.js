@@ -1,12 +1,8 @@
 window.onload = function(event) {
-    //var points = document.getElementById('track').getAttribute('data-id');
     
     //console.log('showMap', points);
 
     if(points.length > 0) {
-
-        //points = JSON.parse(points);    
-        //console.log('showMap', points);
 
         var trackCoordinates = [];
         var bounds = new google.maps.LatLngBounds();
