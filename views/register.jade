@@ -9,7 +9,8 @@ block content
 
     div(data-role='main' class='login')    
       br
-      form(action="/register", method="post", data-ajax='false', onsubmit="return hash(this.password1, this.password2)")
+      //form(action="/register", method="post", data-ajax='false', onsubmit="return hash(this.password1, this.password2)")
+      form(action="/register", method="post", data-ajax='false')
         input(type="text",name="username",min="3",max="20",placeholder="Username (3-20 characters)",required)
         input(type="password",name="password1",placeholder="Password (min. 8 characters)",min="8",required)
         input(type="password",name="password2",min="8",placeholder="Password confirmation",required)
@@ -23,12 +24,12 @@ block content
       br 
       a(href='/') Back to login
         
-  script(src="//bitwiseshiftleft.github.io/sjcl/sjcl.js")
-  script.
-    function hash(password1, password2){
-      var pw1 = password1.value;
-      var pw2 = password2.value;
-      password1.value = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(pw1));
-      password2.value = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(pw2));
-      return true;
-    }
+//  script(src="//bitwiseshiftleft.github.io/sjcl/sjcl.js")
+//  script.
+//    function hash(password1, password2){
+//      var pw1 = password1.value;
+//      var pw2 = password2.value;
+//      password1.value = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(pw1));
+//      password2.value = sjcl.codec.hex.fromBits(sjcl.hash.sha256.hash(pw2));
+//      return true;
+//    }

@@ -113,7 +113,7 @@ exports.logIn = function(req,res){
 exports.getTracks = function(req,res){  
     console.log('getTracks ' + req.session.username + ' ' + req.session.id);   
   
-    Track.find({owner:req.session.username},function(err,data){
+    Track.find({owner:req.session.username}).sort('timeStamp').exec(function(err,data){
         if(err) {
             res.render('error', {message: 'Database error', error: err});
         }
