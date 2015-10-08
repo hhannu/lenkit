@@ -15,13 +15,15 @@ block content
         p Not implemented yet.
      
       
+    
+      
       div(class='ui-grid-a ui-responsive') 
         div(class="ui-block-a", style="width:40%")
           if tracklist.length !== 0
             ul(id='tracks', data-role="listview")                     
               each val, index in tracklist
-                li(class="ui-collapsible-inset")
-                  a(href='/?track=#{index}',data-ajax='false') #{val}
+                li(class="ui-collapsible-inset")                  
+                  a(class="btn", href='/?track=#{index}', data-ajax='false') #{val}    
           else
             ul(id='notracks', data-role="listview")
               li No tracks
@@ -41,7 +43,7 @@ block content
             td 00:00:00
             td #{dist} km
             td 0.0 km/h
-        h4 description
+        h4 Description
         p(id="description") #{desc}
     
       fieldset(class='ui-block-a ui-responsive', style='width:100%')
@@ -53,7 +55,7 @@ block content
             input(type='file', name='gpxfile', required)
           div(class='ui-block-b', style='width:25%')
             input(type='submit', value='Upload')          
-              
+      
     script(src='http://maps.google.com/maps/api/js?sensor=false')
     script.
       var points = !{trackpoints}

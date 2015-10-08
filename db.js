@@ -138,6 +138,7 @@ exports.getTracks = function(req,res){
             res.render('index', { title: 'Lenkit',
                                       username:req.session.username,
                                       tracklist: trackNames,
+                                      selected: index,
                                       desc: desc,
                                       dist: dist,
                                       trackpoints: JSON.stringify(trackPts) }); 
