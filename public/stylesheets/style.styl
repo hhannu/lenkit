@@ -47,16 +47,26 @@ th,td
   width: 30%
   text-align: center
 
-@media only screen and (min-width: 1024px)
+@media all and (min-width: 1024px)
   .ui-content 
     width: 1024px !important;
     margin: 0 auto
-  
-@media only screen and (max-width: 1024px)
+    
+@media all and (max-width: 1023px)
   #tracks
-    height: 200px
+    height: 140px
+    margin-top: 0px
   #notracks
     height: 100px
+    margin-top: 0px
   #map
-    width: 360px
-    height: 360px
+    width: 90%
+    height: 0
+    padding-bottom: 90%
+    margin: 10px auto
+  .my-breakpoint.ui-grid-b .ui-block-a 
+    width: 100%
+    float: left   
+  .my-breakpoint.ui-grid-b .ui-block-b 
+    width: 100%
+    float: left
