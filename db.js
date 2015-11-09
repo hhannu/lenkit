@@ -123,6 +123,8 @@ exports.getTracks = function(req,res){
             var trackPts = [];
             var desc = '';
             var dist = 0;
+            var duration = 0;
+            var spd = 0;
             
             for(var i = 0; i < data.length; i++) {
                 trackNames.push(data[i].name);
@@ -133,14 +135,32 @@ exports.getTracks = function(req,res){
                     trackPts = data[index].trackPoints;
                     desc = data[index].description;
                     dist = data[index].distance;
+                    duration = data[index].duration / 1000;
+                    spd = data[index].avgSpeed;
                 }  
             }
+          
+            var time = 0;
+            if(duration > 0) {
+                var hours = parseInt(duration / 3600) % 24;
+                var minutes = parseInt(duration / 60) % 60;
+                var seconds = duration % 60;
+              
+                time = (hours < 10 ? ('0' + hours) : hours) + ':' 
+                + (minutes < 10 ? ('0' + minutes) : minutes) + ':'
+                + (seconds < 10 ? ('0' + seconds) : seconds);
+            }
+          
+            console.log('Track: ' + desc + ', distance: ' + dist + ' duration: ' + time + '(' + duration + ')');
+          
             res.render('index', { title: 'Lenkit',
                                       username:req.session.username,
                                       tracklist: trackNames,
                                       selected: index,
                                       desc: desc,
                                       dist: dist,
+                                      duration: time,
+                                      speed: spd,
                                       trackpoints: JSON.stringify(trackPts) }); 
         }
     });
@@ -202,11 +222,23 @@ exports.addTrack = function(req,res){
 
             dist = dist + gp2.distanceTo(gp1, true);
         }
+        // get start time and end time
+        var d_start = new Date(points[0].getElementsByTagName("time")[0].childNodes[0].nodeValue);
+        var d_end = new Date(points[points.length - 1].getElementsByTagName("time")[0].childNodes[0].nodeValue);
+        // duration in milliseconds
+        var d_diff = (d_end - d_start);
+        //console.log(d_diff);
 
         //console.log(trackPts);
         //console.log(trackPts.length)
         temp.distance = dist.toFixed(2);
+        temp.duration = d_diff;
         temp.trackPoints = trackPts;
+        if(d_diff > 0) {
+            var spd = ((dist * 1000) / (d_diff / 1000)) * 3.6;
+            temp.avgSpeed = spd.toFixed(1);
+        }
+      
         temp.save(function(err){
             if(err){
                 res.render('error', {title: 'Lenkit', message: 'Failed to save track', error: err});
