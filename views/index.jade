@@ -14,7 +14,7 @@ block content
       div(data-role="popup" id="myPopup" class="ui-content" data-rel="/")
         p Not implemented yet.
 
-      
+      // tracklist
       div(class='ui-grid-b my-breakpoint') 
         div(class="ui-block-a")
           if tracklist.length !== 0
@@ -25,33 +25,46 @@ block content
           else
             ul(id='notracks', data-role="listview")
               li No tracks
-            
+        // map    
         div(class='ui-block-b')
           div(id='map')
             p(id='mapinfo') No track to display
 
       br
       
-      div(class='ui-grid-b my-breakpoint')
-        fieldset(class='ui-block-a', style='width:100%')
-          legend Track information
-          table(class='ui-block-a', style='width:100%')
-            tr
-              th Duration
-              th Distance
-              th Average speed
-            tr
-              td #{duration ? duration : '00:00:00' }
-              td #{dist ? dist : '0'} km
-              td #{speed ? speed : '0' } km/h
+      // If a track is selected, show some information
+      if selected
+        // Distance duration and average speed
+        div(class='ui-grid-b my-breakpoint')
+          fieldset(class='ui-block-a', style='width:100%')
+            legend Track information
+            table(class='ui-block-a', style='width:100%')
+              tr
+                th Duration
+                th Distance
+                th Average speed
+              tr
+                td #{duration ? duration : '00:00:00' }
+                td #{dist ? dist : '0'} km
+                td #{speed ? speed : '0' } km/h
+
+            // Description
+            if desc            
+              div(class='ui-block-a', style='width:100%')
+                h4 Description
+                p(id="description") #{desc}
+                
+        // Edit and delete buttons
+        div(id='buttonrow', class='ui-grid-b my-breakpoint-2')
+          div(class='ui-block-c')
+            input(type='button', value='Edit track') 
+          div(class='ui-block-c')
+            form(action='/deletetrack', method='post', enctype='multipart/form-data', data-ajax='false') 
+              input(type='hidden', id='id', value='#{trackID}') 
+              input(type='submit', value='Delete track') 
+        br       
               
-          if desc            
-            div(class='ui-block-a', style='width:100%')
-              h4 Description
-              p(id="description") #{desc}
-         
-      br 
-      
+      // Add new track
       div(class='ui-grid-b my-breakpoint-2')
         fieldset(class='ui-block-a', style='width:100%')
           legend Add new track

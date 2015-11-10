@@ -75,6 +75,21 @@ router.get('/addtrack', function(req, res) {
     res.redirect('/');    
 });
 
+router.post('/deletetrack', function(req, res) {
+    if(typeof req.session.username !== 'undefined') {
+        db.deleteTrack(req,res);
+    }
+    else{
+        res.location('');
+        res.redirect('/');    
+    }
+});
+
+router.get('/deletetrack', function(req, res) {
+    res.location('');
+    res.redirect('/');    
+});
+
 router.get('/about', function(req, res) {    
     res.render('about', {title: 'Lenkit'})
 });

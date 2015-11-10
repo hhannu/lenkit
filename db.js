@@ -121,6 +121,7 @@ exports.getTracks = function(req,res){
             var index = req.query.track;
             var trackNames = [];
             var trackPts = [];
+            var trackID = 0;
             var desc = '';
             var dist = 0;
             var duration = 0;
@@ -133,6 +134,7 @@ exports.getTracks = function(req,res){
             if(typeof index !== 'undefined' && index >= 0 && index < data.length) {
                 if(typeof data[index] !== 'undefined'){
                     trackPts = data[index].trackPoints;
+                    trackID = data[index].id;
                     desc = data[index].description;
                     dist = data[index].distance;
                     duration = data[index].duration / 1000;
@@ -157,6 +159,7 @@ exports.getTracks = function(req,res){
                                       username:req.session.username,
                                       tracklist: trackNames,
                                       selected: index,
+                                      trackID: trackID,
                                       desc: desc,
                                       dist: dist,
                                       duration: time,
@@ -247,4 +250,12 @@ exports.addTrack = function(req,res){
 
         res.redirect('/');
     }
+}
+
+// delete track from DB
+exports.deleteTrack = function(req,res){
+  
+    // TODO
+  
+    res.redirect('/');
 }
