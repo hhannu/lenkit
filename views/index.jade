@@ -59,8 +59,8 @@ block content
           div(class='ui-block-c')
             input(type='button', value='Edit track') 
           div(class='ui-block-c')
-            form(action='/deletetrack', method='post', enctype='multipart/form-data', data-ajax='false') 
-              input(type='hidden', id='id', value='#{trackID}') 
+            form(action='/deletetrack', method='post', enctype='multipart/form-data', data-ajax='false',  onsubmit="return confirm('Do you really want to delete this track?');") 
+              input(type='hidden', name='track_id', value='#{trackID}') 
               input(type='submit', value='Delete track') 
         br       
               

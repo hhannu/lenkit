@@ -255,7 +255,16 @@ exports.addTrack = function(req,res){
 // delete track from DB
 exports.deleteTrack = function(req,res){
   
-    // TODO
+    console.log('deleteTrack ' + req.session.username + ' ' + req.body.track_id);   
   
-    res.redirect('/');
+    Track.findOne({owner:req.session.username, _id:req.body.track_id}).remove(function(err,data){
+        if(err) {
+            // Failed to remove track
+            res.render('error', {message: 'Database error', error: err});
+        }
+        else {
+            // All ok, track removed
+            res.redirect('/');          
+        }
+    });                                                                             
 }
