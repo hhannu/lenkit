@@ -75,6 +75,21 @@ router.get('/addtrack', function(req, res) {
     res.redirect('/');    
 });
 
+router.post('/edittrack', function(req, res) {
+    if(typeof req.session.username !== 'undefined') {
+        db.updateTrack(req,res);
+    }
+    else{
+        res.location('');
+        res.redirect('/');    
+    }
+});
+
+router.get('/edittrack', function(req, res) {
+    res.location('');
+    res.redirect('/');    
+});
+
 router.post('/deletetrack', function(req, res) {
     if(typeof req.session.username !== 'undefined') {
         db.deleteTrack(req,res);

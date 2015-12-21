@@ -31,7 +31,8 @@ var track = new mongoose.Schema({
     distance: Number,
     duration: Number,
     avgSpeed: Number,
-    timeStamp: Date,
+    cTime: Date,        // creation time
+    mTime: Date,        // modification time
     trackPoints: []
 });
 
@@ -113,7 +114,7 @@ exports.logIn = function(req,res){
 exports.getTracks = function(req,res){  
     console.log('getTracks ' + req.session.username + ' ' + req.session.id);   
   
-    Track.find({owner:req.session.username}).sort('timeStamp').exec(function(err,data){
+    Track.find({owner:req.session.username}).sort('cTime').exec(function(err,data){
         if(err) {
             res.render('error', {message: 'Database error', error: err});
         }
@@ -183,7 +184,8 @@ exports.addTrack = function(req,res){
     });    
     
     var dist = 0.0;
-    temp.timeStamp = new Date();
+    temp.cTime = new Date();
+    temp.mTime = temp.cTime;
 
     // handle file
     var parser = new DOMParser();
@@ -250,6 +252,29 @@ exports.addTrack = function(req,res){
 
         res.redirect('/');
     }
+}
+
+// save modified trackinfo to DB
+exports.updateTrack = function(req,res){
+    console.log('updateTrack ' + req.session.username + ' ' + req.session.track_id);   
+  
+    Track.findOneAndUpdate(
+      {owner:req.session.username, _id:req.body.track_id},
+      {description:req.body.desc,
+       distance:parseFloat(req.body.distance),
+       // TODO: convert to seconds
+       //duration:parseFloat(req.body.duration),
+       avgSpeed:parseFloat(req.body.avgspeed),
+       cTime:new Date()},
+      function(err,data){
+        if(err) {
+            res.render('error', {message: 'Database error', error: err});
+        }
+        else {
+            res.redirect('/');
+            // TODO: load previous page ?
+        }
+    });
 }
 
 // delete track from DB
